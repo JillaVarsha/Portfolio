@@ -128,6 +128,7 @@ const Skills = () => {
     Certifications
   </h3>
   <div
+    className="certifications-grid"
     style={{
       display: 'flex',
       justifyContent: 'center',
@@ -181,6 +182,7 @@ const Skills = () => {
     ].map((cert, index) => (
       <div
         key={index}
+        className="certification-card"
         style={{
           background: 'linear-gradient(135deg, #112240, #0a192f)',
           border: '1px solid #00f0ff55',

@@ -46,7 +46,6 @@ const checkpoints = [
 const About = () => {
   const [avatarX, setAvatarX] = useState(50);
   const [activeCard, setActiveCard] = useState(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [hasClickedOnce, setHasClickedOnce] = useState(false);
 
   const handleCheckpointClick = (point) => {
@@ -85,7 +84,9 @@ const About = () => {
         My Club Journey
       </h3>
       <div
+        className="timeline"
         style={{
+          '--journey-progress': `${10 + Math.max(0, Math.min(1, (avatarX - 60) / 560)) * 80}%`,
           position: 'relative',
           height: '200px',
           borderTop: '4px dashed #00f0ff',
@@ -99,6 +100,7 @@ const About = () => {
       >
         {!hasClickedOnce && (
           <div
+            className="timeline-hint"
             style={{
               position: 'absolute',
               top: '-90px',
@@ -111,12 +113,13 @@ const About = () => {
               boxShadow: '0 0 8px rgba(0, 240, 255, 0.2)',
             }}
           >
-            Click a dot to explore!
+            Tap or click a dot to explore!
           </div>
         )}
         <img
           src={avatarGif}
           alt="Walking Avatar"
+          className="timeline-avatar"
           style={{
             position: 'absolute',
             top: '-48px',
@@ -126,11 +129,10 @@ const About = () => {
           }}
         />
         {checkpoints.map((point) => (
-          <div
+          <button
             key={point.id}
+            type="button"
             onClick={() => handleCheckpointClick(point)}
-            onMouseEnter={() => setHoveredIndex(point.id)}
-            onMouseLeave={() => setHoveredIndex(null)}
             style={{
               position: 'absolute',
               top: '-10px',
@@ -141,17 +143,20 @@ const About = () => {
               backgroundColor: '#00f0ff',
               border: '2px solid white',
               cursor: 'pointer',
-              transition: 'transform 0.2s ease-in-out',
-              ...(hoveredIndex === point.id && { transform: 'scale(1.3)' }),
             }}
+            className="timeline-checkpoint"
+            aria-label={`Show details about ${point.club}`}
             title={point.label}
-          />
+          >
+            <span>{point.label}</span>
+          </button>
         ))}
         {activeCard && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
+            className="timeline-card"
             style={{
               position: 'absolute',
               top: '40px',
@@ -171,6 +176,7 @@ const About = () => {
             </div>
             <div style={{ fontSize: '0.9rem' }}>{activeCard.info}</div>
             <div
+              className="timeline-card__pointer"
               style={{
                 position: 'absolute',
                 top: '-10px',
@@ -188,11 +194,12 @@ const About = () => {
       </div>
 
       {/* Hobbies */}
-      <div style={{ marginTop: '4rem' }}>
+      <div className="hobbies-section" style={{ marginTop: '4rem' }}>
         <h3 style={{ fontSize: '1.8rem', color: '#00f0ff', marginBottom: '1.5rem' }}>
           Hobbies & Interests
         </h3>
         <div
+          className="hobbies-grid"
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -256,11 +263,12 @@ const About = () => {
         </div>
       </div>
       {/* Languages Known */}
-<div style={{ marginTop: '4rem' }}>
+<div className="languages-section" style={{ marginTop: '4rem' }}>
   <h3 style={{ fontSize: '1.8rem', color: '#00f0ff', marginBottom: '1.5rem' }}>
     Languages Known
   </h3>
   <div
+    className="languages-grid"
     style={{
       display: 'flex',
       justifyContent: 'center',
