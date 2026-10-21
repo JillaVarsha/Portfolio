@@ -1,32 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-
+import ParticlesBackground from './components/ParticlesBackground';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Home from './sections/Home';
+import About from './sections/About';
+import Projects from './sections/Projects';
+import Skills from './sections/Skills';
+import Contact from './sections/Contact';
 
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import Skills from './pages/Skills';
-import Contact from './pages/Contact';
-
-const App = () => {
+function App() {
   return (
-    <Router>
+    <div>
+      <ParticlesBackground />
       <Navbar />
-      <AnimatePresence mode="wait">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </AnimatePresence>
-      <Footer />
-    </Router>
+      <Home />
+      <About />
+      <Projects />
+      <Skills />
+      <Contact />
+    </div>
   );
-};
+}
 
 export default App;
